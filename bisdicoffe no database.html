@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BisdiCoffe - Ngopi Hemat, Ide Cermat!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #6A1B9A; /* Ungu */
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav {
+            background-color: #FBC02D; /* Kuning */
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #6A1B9A; /* Ungu */
+            text-decoration: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+
+        nav a:hover {
+            background-color: #6A1B9A;
+            color: white;
+        }
+
+        section {
+            padding: 20px;
+            margin: 0 10px;
+        }
+
+        .products, .promotions {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .product, .promotion {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            width: 28%;
+            margin: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product img, .promotion img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .product h3, .promotion h3 {
+            color: #6A1B9A;
+        }
+
+        .price {
+            font-size: 18px;
+            color: #FBC02D; /* Kuning */
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #6A1B9A;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Keranjang */
+        .cart-container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cart-container table th, .cart-container table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-container button {
+            background-color: #6A1B9A;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cart-container button:hover {
+            background-color: #FBC02D;
+        }
+
+        .total-amount {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #6A1B9A;
+        }
+
+        /* Struk */
+        .receipt-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .receipt-container h3 {
+            color: #6A1B9A;
+        }
+
+        .receipt-container p {
+            font-size: 16px;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>BisdiCoffe</h1>
+    <p>Kopinya para mahasiswa di Pakuan!</p>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#products">Daftar Produk</a>
+    <a href="#promotions">Promo</a>
+    <a href="#cart">Keranjang</a> <!-- Link ke keranjang -->
+    <a href="#checkout" onclick="goToCheckout()">Checkout</a> <!-- Link ke halaman checkout -->
+</nav>
+
+<section id="home">
+    <h2>Selamat Datang di BisdiCoffe</h2>
+    <p>Tempat Ngopi nyaman untuk mahasiswa: kopi enak, suasana mendukung, dan harga bersahabat. Cocok untuk belajar, diskusi, atau sekadar melepas penat. Jadikan waktu produktifmu lebih berarti di sini.</p>
+</section>
+
+<section id="products">
+    <h2>Daftar Produk</h2>
+    <div class="products">
+        <!-- Produk 1 -->
+        <div class="product">
+            <img src="kopsu.jpg" alt="Kopi Susu Gula Aren">
+            <h3>Kopi Susu Gula Aren</h3>
+            <p>Kopi Susu dibuat dengan perpaduan sempurna antara kopi berkualitas tinggi dan susu segar yang memberikan rasa manis dan lembut.</p>
+            <p class="price">Rp 12.000</p>
+            <button onclick="addToCart('Kopi Susu Gula Aren', 12000)">Masukkan ke Keranjang</button>
+        </div>
+        <!-- Produk 2 -->
+        <div class="product">
+            <img src="coklat.jpg" alt="Chocolate">
+            <h3>Chocolate</h3>
+            <p>Coklat hangat ini menawarkan rasa coklat yang kaya dan lembut, disajikan dengan campuran susu segar yang memanjakan lidah. Setiap tegukan memberikan sensasi manis yang menyegarkan, cocok dinikmati kapan saja.</p>
+            <p class="price">Rp 12.000</p>
+            <button onclick="addToCart('Chocolate', 12000)">Masukkan ke Keranjang</button>
+        </div>
+        <!-- Produk 3 -->
+        <div class="product">
+            <img src="americano.jpg" alt="Americano">
+            <h3>Americano</h3>
+            <p>Kopi hitam yang diseduh dengan campuran air panas, menghasilkan rasa yang kuat namun halus. Dengan kekuatan kopi yang tajam, minuman ini menjadi pilihan sempurna bagi pecinta kopi yang menginginkan cita rasa yang sederhana dan murni.</p>
+            <p class="price">Rp 10.000</p>
+            <button onclick="addToCart('Redvelvet', 10000)">Masukkan ke Keranjang</button>
+        </div>
+    </div>
+</section>
+
+<section id="promotions">
+    <h2>Promo Terbaru</h2>
+    <div class="promotions">
+        <!-- Promo Redvelvet -->
+        <div class="promotion">
+            <img src="redvelvet.jpg" alt="Promo Redvelvet">
+            <h3>Redvelvet</h3>
+            <p>Promo spesial Red Velvet hingga 20% off! Rasakan kelembutan cokelat yang kaya dan gurihnya cream cheese dalam setiap gigitan. Hanya berlaku untuk waktu terbatas, jadi jangan sampai ketinggalan!</p>
+            <p class="price">Harga Promo: Rp 13.600</p>
+            <button onclick="addToCart('Redvelvet Promo', 13600)">Masukkan ke Keranjang</button> <!-- Tombol Masukkan ke Keranjang -->
+        </div>
+        <!-- Promo Matcha Latte -->
+        <div class="promotion">
+            <img src="matcha.jpg" alt="Promo Matcha">
+            <h3>Matcha Latte</h3>
+            <p>Nikmati diskon 20% untuk semua pesanan Matcha! Segarkan hari Anda dengan cita rasa teh hijau yang kaya dan aroma yang menenangkan. Promo berlaku hingga akhir bulan!</p>
+            <p class="price">Harga Promo: Rp 12.000</p>
+            <button onclick="addToCart('Matcha Latte Promo', 12000)">Masukkan ke Keranjang</button> <!-- Tombol Masukkan ke Keranjang -->
+        </div>
+        <!-- Promo Cappuccino -->
+        <div class="promotion">
+            <img src="cappucino.jpg" alt="Promo Cappuccino">
+            <h3>Cappuccino</h3>
+            <p>Nikmati diskon 20% untuk setiap pesanan Cappuccino. Rasakan kenikmatan kopi yang kaya dengan susu yang lembut, hanya dengan harga yang lebih hemat! Promo berlaku hingga stok terbatas.</p>
+            <p class="price">Harga Promo: Rp 13.600</p>
+            <button onclick="addToCart('Cappuccino Promo', 13600)">Masukkan ke Keranjang</button> <!-- Tombol Masukkan ke Keranjang -->
+        </div>
+    </div>
+</section>
+
+<section id="cart" class="cart-container">
+    <h2>Keranjang Anda</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Produk</th>
+                <th>Harga</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="cart-items">
+            <!-- Item keranjang akan ditambahkan di sini -->
+        </tbody>
+    </table>
+    <p class="total-amount">Total: Rp 0</p> <!-- Menampilkan total -->
+    <button onclick="goToCheckout()">Checkout</button>
+</section>
+
+<!-- Struk Pembelian -->
+<section id="receipt" class="receipt-container" style="display: none;">
+    <h3>Struk Pembelian</h3>
+    <p>Terima kasih telah berbelanja di BisdiCoffe!</p>
+    <div id="receipt-details"></div>
+    <p class="total-amount">Total: Rp 0</p>
+</section>
+
+<script>
+    const cartItems = [];
+
+    function addToCart(productName, productPrice) {
+        const cartTable = document.getElementById('cart-items');
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+            <td>${productName}</td>
+            <td>Rp ${productPrice.toLocaleString()}</td>
+            <td><button onclick="removeFromCart(this)">Hapus</button></td>
+        `;
+
+        cartTable.appendChild(row);
+        cartItems.push({ productName, productPrice });
+        calculateTotal(); // Update total setelah menambahkan item ke keranjang
+        alert(productName + " berhasil ditambahkan ke keranjang!");
+    }
+
+    function removeFromCart(button) {
+        const row = button.parentElement.parentElement;
+        row.remove();
+        const productName = row.cells[0].textContent;
+        cartItems.splice(cartItems.findIndex(item => item.productName === productName), 1);
+        calculateTotal(); // Update total setelah menghapus item dari keranjang
+        alert('Item berhasil dihapus dari keranjang!');
+    }
+
+    function calculateTotal() {
+        let total = 0;
+        cartItems.forEach(item => {
+            total += item.productPrice;
+        });
+        document.querySelector('.total-amount').textContent = Total: Rp ${total.toLocaleString()};
+    }
+
+    function goToCheckout() {
+        if (cartItems.length === 0) {
+            alert('Keranjang Anda kosong!');
+        } else {
+            alert('Pembayaran telah selesai, Terimakasih sudah membeli di BisdiCoffe!...');
+            displayReceipt(); // Tampilkan struk setelah checkout
+        }
+    }
+
+    function displayReceipt() {
+        const receiptSection = document.getElementById('receipt');
+        const receiptDetails = document.getElementById('receipt-details');
+        const totalAmount = cartItems.reduce((sum, item) => sum + item.productPrice, 0);
+        receiptDetails.innerHTML = cartItems.map(item => `
+            <p>${item.productName}: Rp ${item.productPrice.toLocaleString()}</p>
+        `).join('');
+        receiptSection.querySelector('.total-amount').textContent = Total: Rp ${totalAmount.toLocaleString()};
+        receiptSection.style.display = 'block'; // Menampilkan struk
+        document.querySelector('#cart').style.display = 'none'; // Menyembunyikan keranjang
+    }
+</script>
+
+</body>
+</html>
